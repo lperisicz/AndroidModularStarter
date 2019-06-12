@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
-group='com.github.lperisicz'
+group='com.github.lperisicz.modular-starter.base'
 
 android {
     compileSdkVersion 28
