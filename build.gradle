@@ -13,6 +13,28 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
+    ext {
+        // sdk and tools
+        minSdkVersion = 23
+        targetSdkVersion = 28
+        compileSdkVersion = 28
+        buildToolsVersion = '23.0.2'
+        applicationId = "com.perisic.luka.androidmodularstarter"
+        versionCode = 2
+        versionName = "1.0.0"
+        javaVersion = JavaVersion.VERSION_1_8
+        // dependencies versions
+        materialSupportVersion = '1.0.0'
+        androidXAppCompatVersion = '1.1.0-beta01'
+        constraintLayoutVersion = '1.1.3'
+        daggerVersion = '2.19'
+        butterknifeVersion = '10.1.0'
+        lifecycleExtensionsVersion = '1.1.1'
+        retrofitVersion = '2.5.0'
+        gsonVersion = "2.8.5"
+        okHttpVersion = '3.13.1'
+        roomVersion = "1.1.1"
+    }
 }
 
 allprojects {

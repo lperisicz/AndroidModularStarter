@@ -4,17 +4,14 @@ apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.lperisicz.AndroidModularStarter'
 
 android {
-    compileSdkVersion 28
-
-
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -23,14 +20,30 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    compileOptions {
+        sourceCompatibility rootProject.ext.javaVersion
+        targetCompatibility rootProject.ext.javaVersion
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    //ANDROID_X_SUPPORT
+    api "androidx.appcompat:appcompat:$rootProject.androidXAppCompatVersion"
+    api "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    api "android.arch.lifecycle:extensions:$rootProject.lifecycleExtensionsVersion"
+    api "com.google.android.material:material:$rootProject.materialSupportVersion"
+
+    //DAGGER
+    api "com.google.dagger:dagger-android:$rootProject.daggerVersion"
+    api "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+
     implementation 'androidx.appcompat:appcompat:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
 }
