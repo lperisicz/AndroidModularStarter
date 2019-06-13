@@ -29,10 +29,10 @@ public abstract class BaseRoomModule {
 
     @Provides
     @Singleton
-    static <T extends BaseLocalDatabase> T provideLocalDatabase(
+    static BaseLocalDatabase provideLocalDatabase(
             @ApplicationContext Context applicationContext,
             @DatabaseName String databaseName,
-            @DatabaseClass Class<T> databaseClass
+            @DatabaseClass Class<? extends BaseLocalDatabase> databaseClass
     ) {
         return Room.databaseBuilder(applicationContext, databaseClass, databaseName)
                 .allowMainThreadQueries()
