@@ -13,6 +13,6 @@ import javax.inject.Qualifier;
 @Qualifier
 @Target({ElementType.METHOD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ApplicationContext {
+public @interface DatabaseClass {
 
 }

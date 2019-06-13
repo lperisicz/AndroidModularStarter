@@ -1,5 +1,12 @@
 package com.perisic.luka.local.di;
 
+import android.content.Context;
+
+import androidx.room.Room;
+
+import com.perisic.luka.base.di.qualifiers.ApplicationContext;
+import com.perisic.luka.base.di.qualifiers.DatabaseClass;
+import com.perisic.luka.base.di.qualifiers.DatabaseName;
 import com.perisic.luka.local.BaseLocalDatabase;
 import com.perisic.luka.local.dao.UserModelDao;
 
@@ -14,11 +21,22 @@ import dagger.Provides;
 @Module
 public abstract class BaseRoomModule {
 
-
     @Provides
     @Singleton
     static UserModelDao provideUserModelDao(BaseLocalDatabase baseLocalDatabase) {
         return baseLocalDatabase.userModelDao();
+    }
+
+    @Provides
+    @Singleton
+    static <T extends BaseLocalDatabase> T provideLocalDatabase(
+            @ApplicationContext Context applicationContext,
+            @DatabaseName String databaseName,
+            @DatabaseClass Class<T> databaseClass
+    ) {
+        return Room.databaseBuilder(applicationContext, databaseClass, databaseName)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration().build();
     }
 
 }
