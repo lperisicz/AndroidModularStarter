@@ -1,6 +1,5 @@
 package com.perisic.luka.remote.services;
 
-import com.perisic.luka.remote.config.AuthServiceConfig;
 import com.perisic.luka.remote.config.Config;
 import com.perisic.luka.remote.data.helper.BaseResponse;
 import com.perisic.luka.remote.data.request.RefreshTokenRequest;
@@ -11,10 +10,12 @@ import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
+import static com.perisic.luka.remote.config.AuthServiceConfig.ROUTE_REFRESH_TOKEN;
+
 /**
  * Created by Luka Perisic on 14.6.2019..
  */
-public interface AuthService extends AuthServiceConfig {
+public interface AuthService {
 
     @Headers(Config.NO_JWT_AUTH_HEADER)
     @POST(ROUTE_REFRESH_TOKEN)
