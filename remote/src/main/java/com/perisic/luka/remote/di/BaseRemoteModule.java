@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by Luka Perisic on 13.6.2019..
  */
-@Module
+@Module(includes = BaseServiceModule.class)
 public abstract class BaseRemoteModule {
 
     @Provides
@@ -27,7 +27,7 @@ public abstract class BaseRemoteModule {
 
     @Provides
     @Singleton
-    static OkHttpClient provideOkhttpClient() {
+    static OkHttpClient provideOkHttpClient() {
         return new OkHttpClient.Builder()
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();
