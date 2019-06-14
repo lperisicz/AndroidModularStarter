@@ -30,7 +30,7 @@ public abstract class BaseRoomModule {
 
     @Provides
     @Singleton
-    static TokenModelDao provideToneModelDao(BaseLocalDatabase baseLocalDatabase) {
+    static TokenModelDao provideTokenModelDao(BaseLocalDatabase baseLocalDatabase) {
         return baseLocalDatabase.tokenModelDao();
     }
 
