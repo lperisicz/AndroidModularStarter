@@ -8,6 +8,7 @@ import com.perisic.luka.base.di.qualifiers.ApplicationContext;
 import com.perisic.luka.base.di.qualifiers.DatabaseClass;
 import com.perisic.luka.base.di.qualifiers.DatabaseName;
 import com.perisic.luka.local.BaseLocalDatabase;
+import com.perisic.luka.local.dao.TokenModelDao;
 import com.perisic.luka.local.dao.UserModelDao;
 
 import javax.inject.Singleton;
@@ -25,6 +26,12 @@ public abstract class BaseRoomModule {
     @Singleton
     static UserModelDao provideUserModelDao(BaseLocalDatabase baseLocalDatabase) {
         return baseLocalDatabase.userModelDao();
+    }
+
+    @Provides
+    @Singleton
+    static TokenModelDao provideToneModelDao(BaseLocalDatabase baseLocalDatabase) {
+        return baseLocalDatabase.tokenModelDao();
     }
 
     @Provides
