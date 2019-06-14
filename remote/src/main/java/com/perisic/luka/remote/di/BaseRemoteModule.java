@@ -2,6 +2,8 @@ package com.perisic.luka.remote.di;
 
 import com.google.gson.GsonBuilder;
 import com.perisic.luka.base.di.qualifiers.BaseUrl;
+import com.perisic.luka.remote.networking.ServiceInterceptor;
+import com.perisic.luka.remote.networking.TokenAuthenticator;
 
 import javax.inject.Singleton;
 
@@ -27,9 +29,11 @@ public abstract class BaseRemoteModule {
 
     @Provides
     @Singleton
-    static OkHttpClient provideOkHttpClient() {
+    static OkHttpClient provideOkHttpClient(ServiceInterceptor serviceInterceptor, TokenAuthenticator tokenAuthenticator) {
         return new OkHttpClient.Builder()
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(serviceInterceptor)
+                .authenticator(tokenAuthenticator)
                 .build();
     }
 

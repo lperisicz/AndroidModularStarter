@@ -4,15 +4,19 @@ import android.content.Context;
 
 import androidx.room.Room;
 
+import com.perisic.luka.base.di.helper.OnTokenChangeListener;
+import com.perisic.luka.base.di.helper.TokenModelProvider;
 import com.perisic.luka.base.di.qualifiers.ApplicationContext;
 import com.perisic.luka.base.di.qualifiers.DatabaseClass;
 import com.perisic.luka.base.di.qualifiers.DatabaseName;
 import com.perisic.luka.local.BaseLocalDatabase;
 import com.perisic.luka.local.dao.TokenModelDao;
 import com.perisic.luka.local.dao.UserModelDao;
+import com.perisic.luka.local.data.TokenModel;
 
 import javax.inject.Singleton;
 
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 
@@ -33,6 +37,16 @@ public abstract class BaseRoomModule {
     static TokenModelDao provideTokenModelDao(BaseLocalDatabase baseLocalDatabase) {
         return baseLocalDatabase.tokenModelDao();
     }
+
+    @Provides
+    @Singleton
+    static OnTokenChangeListener provideOnTokenChangeListener(TokenModelDao tokenModelDao) {
+        return (token, refreshToken) -> tokenModelDao.insert(new TokenModel(token, refreshToken));
+    }
+
+    @Binds
+    @Singleton
+    abstract TokenModelProvider provideTokenModelProvider(TokenModelProvider tokenModelProvider);
 
     @Provides
     @Singleton
