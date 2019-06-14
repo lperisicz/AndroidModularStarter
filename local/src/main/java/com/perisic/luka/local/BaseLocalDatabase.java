@@ -2,6 +2,7 @@ package com.perisic.luka.local;
 
 import androidx.room.RoomDatabase;
 
+import com.perisic.luka.local.dao.TokenModelDao;
 import com.perisic.luka.local.dao.UserModelDao;
 
 /**
@@ -10,5 +11,7 @@ import com.perisic.luka.local.dao.UserModelDao;
 public abstract class BaseLocalDatabase extends RoomDatabase {
 
     public abstract UserModelDao userModelDao();
+
+    public abstract TokenModelDao tokenModelDao();
 
 }
