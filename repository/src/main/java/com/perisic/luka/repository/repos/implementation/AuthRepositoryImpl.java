@@ -1,9 +1,9 @@
 package com.perisic.luka.repository.repos.implementation;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
+import com.perisic.luka.base.di.helper.OnTokenChangeListener;
+import com.perisic.luka.base.di.helper.TokenModelProvider;
 import com.perisic.luka.remote.data.helper.BaseResponse;
 import com.perisic.luka.remote.data.request.LoginRequest;
 import com.perisic.luka.remote.data.response.LoginResponse;
@@ -12,45 +12,32 @@ import com.perisic.luka.repository.repos.abstraction.AuthRepository;
 
 import javax.inject.Inject;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 /**
  * Created by Luka Perisic on 14.6.2019..
  */
 public class AuthRepositoryImpl implements AuthRepository {
 
     private AuthService authService;
+    private OnTokenChangeListener onTokenChangeListener;
+    private TokenModelProvider tokenModelProvider;
 
     @Inject
-    public AuthRepositoryImpl(AuthService authService) {
+    AuthRepositoryImpl(AuthService authService, OnTokenChangeListener onTokenChangeListener, TokenModelProvider tokenModelProvider) {
         this.authService = authService;
+        this.onTokenChangeListener = onTokenChangeListener;
+        this.tokenModelProvider = tokenModelProvider;
     }
 
     @Override
     public LiveData<BaseResponse<LoginResponse>> login(LoginRequest loginRequest) {
-        return executeCall(authService.login(loginRequest));
-    }
-
-    private static <T> LiveData<BaseResponse<T>> executeCall(Call<BaseResponse<T>> call) {
-        MutableLiveData<BaseResponse<T>> apiResponse = new MutableLiveData<>();
-        call.enqueue(new Callback<BaseResponse<T>>() {
-            @Override
-            public void onResponse(@NonNull Call<BaseResponse<T>> call, @NonNull Response<BaseResponse<T>> response) {
-                if (response.body() != null) {
-                    apiResponse.setValue(response.body());
-                } else if (response.errorBody() != null) {
-                    apiResponse.setValue(null);
+        return executeCall(
+                authService.login(loginRequest),
+                loginResponse -> {
+                    onTokenChangeListener.onTokenChange(loginResponse.getToken(), loginResponse.getRefreshToken());
+                    tokenModelProvider.setToken(loginResponse.getToken());
+                    tokenModelProvider.setRefreshToken(loginResponse.getRefreshToken());
                 }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<BaseResponse<T>> call, @NonNull Throwable t) {
-
-            }
-        });
-        return apiResponse;
+        );
     }
 
 }
