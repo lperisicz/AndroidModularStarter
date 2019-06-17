@@ -2,7 +2,6 @@ package com.perisic.luka.repository.repos;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.perisic.luka.remote.data.helper.BaseData;
@@ -24,15 +23,15 @@ public interface BaseRepository {
             @Override
             public void onResponse(@NonNull Call<BaseResponse<T>> call, @NonNull Response<BaseResponse<T>> response) {
                 if (response.body() != null) {
-                    apiResponse.setValue(response.body());
+                    apiResponse.setValue(response.body(), BaseData.Status.DONE);
                 } else if (response.errorBody() != null) {
-                    apiResponse.setValue(null);
+                    apiResponse.setValue(response.body(), BaseData.Status.ERROR);
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<BaseResponse<T>> call, @NonNull Throwable t) {
-
+                apiResponse.setValue(new BaseResponse<>(BaseData.Status.ERROR));
             }
         });
         return apiResponse.startWithLoading();
