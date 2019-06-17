@@ -44,9 +44,11 @@ public abstract class BaseRoomModule {
         return (token, refreshToken) -> tokenModelDao.insert(new TokenModel(token, refreshToken));
     }
 
-    @Binds
+    @Provides
     @Singleton
-    abstract TokenModelProvider provideTokenModelProvider(TokenModelProvider tokenModelProvider);
+    static TokenModelProvider provideTokenModelProvider() {
+        return new TokenModelProvider();
+    }
 
     @Provides
     @Singleton

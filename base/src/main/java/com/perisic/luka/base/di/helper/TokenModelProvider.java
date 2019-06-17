@@ -1,17 +1,19 @@
 package com.perisic.luka.base.di.helper;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by Luka Perisic on 14.6.2019..
  */
+@Singleton
 public class TokenModelProvider {
 
     private String token;
     private String refreshToken;
 
     @Inject
-    TokenModelProvider() {
+    public TokenModelProvider() {
         this.token = "";
         this.refreshToken = "";
     }
