@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by Luka Perisic on 13.6.2019..
  */
-@Module(includes = BaseServiceModule.class)
+@Module
 public abstract class BaseRemoteModule {
 
     @Provides
