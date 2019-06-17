@@ -1,7 +1,9 @@
 package com.perisic.luka.remote.di;
 
-import javax.inject.Singleton;
+import com.perisic.luka.base.di.qualifiers.Authentication;
 import com.perisic.luka.remote.services.AuthService;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -15,7 +17,7 @@ public abstract class BaseServiceModule {
 
     @Provides
     @Singleton
-    static AuthService providesAuthService(Retrofit retrofit) {
+    static AuthService providesAuthService(@Authentication Retrofit retrofit) {
         return retrofit.create(AuthService.class);
     }
 

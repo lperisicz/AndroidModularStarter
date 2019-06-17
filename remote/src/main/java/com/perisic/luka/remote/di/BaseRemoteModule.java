@@ -1,6 +1,7 @@
 package com.perisic.luka.remote.di;
 
 import com.google.gson.GsonBuilder;
+import com.perisic.luka.base.di.qualifiers.Authentication;
 import com.perisic.luka.base.di.qualifiers.BaseUrl;
 import com.perisic.luka.remote.networking.ServiceInterceptor;
 import com.perisic.luka.remote.networking.TokenAuthenticator;
@@ -40,6 +41,26 @@ public abstract class BaseRemoteModule {
     @Provides
     @Singleton
     static Retrofit provideRetrofit(OkHttpClient okHttpClient, Converter.Factory converterFactory, @BaseUrl String baseUrl) {
+        return new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(converterFactory)
+                .client(okHttpClient)
+                .build();
+    }
+
+    @Provides
+    @Singleton
+    @Authentication
+    static OkHttpClient provideOkHttpClientForAuthentication() {
+        return new OkHttpClient.Builder()
+                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .build();
+    }
+
+    @Provides
+    @Singleton
+    @Authentication
+    static Retrofit provideRetrofitForAuthentication(@Authentication OkHttpClient okHttpClient, Converter.Factory converterFactory, @BaseUrl String baseUrl) {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(converterFactory)
