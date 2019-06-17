@@ -19,7 +19,7 @@ import retrofit2.Response;
 public interface BaseRepository {
     //TODO
     default <T> LiveData<BaseResponse<T>> executeCall(Call<BaseResponse<T>> call) {
-        MutableLiveData<BaseResponse<T>> apiResponse = new MutableLiveData<>();
+        NetworkLiveDataSource<T> apiResponse = new NetworkLiveDataSource<>();
         call.enqueue(new Callback<BaseResponse<T>>() {
             @Override
             public void onResponse(@NonNull Call<BaseResponse<T>> call, @NonNull Response<BaseResponse<T>> response) {
@@ -35,7 +35,7 @@ public interface BaseRepository {
 
             }
         });
-        return apiResponse;
+        return apiResponse.startWithLoading();
     }
 
     default <T> LiveData<BaseResponse<T>> executeCall(Call<BaseResponse<T>> call, @NonNull Observer<T> callback) {
