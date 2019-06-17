@@ -3,25 +3,20 @@ package com.perisic.luka.remote.data.helper;
 /**
  * Created by Luka Perisic on 14.6.2019..
  */
-public class BaseResponse<T> {
+public class BaseResponse<T> extends BaseData{
 
     private T data;
     private String message;
     private String code;
 
-    public BaseResponse(T data, String message) {
+    public BaseResponse(T data, String message, String code) {
         this.data = data;
         this.message = message;
-    }
-
-    public BaseResponse(String message) {
-        this.message = message;
-    }
-
-    public BaseResponse(T data, String code, String message) {
-        this.data = data;
         this.code = code;
-        this.message = message;
+    }
+
+    public BaseResponse(Status status) {
+        super(status);
     }
 
     public T getData() {
