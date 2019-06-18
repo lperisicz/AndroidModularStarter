@@ -4,10 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.perisic.luka.remote.data.helper.BaseData;
 import com.perisic.luka.remote.data.helper.BaseResponse;
 import com.perisic.luka.remote.data.helper.NetworkLiveDataSource;
 
+import java.lang.reflect.Type;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,7 +30,7 @@ public interface BaseRepository {
                 if (response.body() != null) {
                     apiResponse.setValue(response.body(), BaseData.Status.DONE);
                 } else if (response.errorBody() != null) {
-                    apiResponse.setValue(response.body(), BaseData.Status.ERROR);
+                    apiResponse.setValue(parseRetrofitErrorBody(response.errorBody()), BaseData.Status.ERROR);
                 }
             }
 
@@ -48,7 +53,7 @@ public interface BaseRepository {
                     }
                     apiResponse.setValue(response.body(), BaseData.Status.DONE);
                 } else if (response.errorBody() != null) {
-                    apiResponse.setValue(response.body(), BaseData.Status.ERROR);
+                    apiResponse.setValue(parseRetrofitErrorBody(response.errorBody()), BaseData.Status.ERROR);
                 }
             }
 
@@ -58,6 +63,18 @@ public interface BaseRepository {
             }
         });
         return apiResponse.startWithLoading();
+    }
+
+    default <T> BaseResponse<T> parseRetrofitErrorBody(ResponseBody responseBody) {
+        if (responseBody != null) {
+            Gson gson = new Gson();
+            Type collectionType = new TypeToken<BaseResponse<T>>() {
+            }.getType();
+            return gson.fromJson(responseBody.charStream(), collectionType);
+        } else {
+            return new BaseResponse<>(BaseData.Status.ERROR, "Unable to parse Retrofit error, response body was null");
+        }
+
     }
 
 }

@@ -19,6 +19,11 @@ public class BaseResponse<T> extends BaseData{
         super(status);
     }
 
+    public BaseResponse(Status status, String message) {
+        super(status);
+        this.message = message;
+    }
+
     public T getData() {
         return data;
     }
