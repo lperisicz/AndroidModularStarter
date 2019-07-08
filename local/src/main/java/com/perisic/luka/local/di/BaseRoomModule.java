@@ -24,7 +24,7 @@ import dagger.Provides;
  * Created by Luka Perisic on 13.6.2019..
  */
 @Module
-abstract class BaseRoomModule {
+public abstract class BaseRoomModule {
 
     @Provides
     @Singleton
