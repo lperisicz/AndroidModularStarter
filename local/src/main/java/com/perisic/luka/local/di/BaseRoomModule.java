@@ -24,7 +24,7 @@ import dagger.Provides;
  * Created by Luka Perisic on 13.6.2019..
  */
 @Module
-public abstract class BaseRoomModule {
+abstract class BaseRoomModule {
 
     @Provides
     @Singleton
@@ -34,8 +34,14 @@ public abstract class BaseRoomModule {
 
     @Provides
     @Singleton
-    static TokenModelDao provideTokenModelDao(BaseLocalDatabase baseLocalDatabase) {
-        return baseLocalDatabase.tokenModelDao();
+    static BaseLocalDatabase provideLocalDatabase(
+            @ApplicationContext Context applicationContext,
+            @DatabaseName String databaseName,
+            @DatabaseClass Class<? extends BaseLocalDatabase> databaseClass
+    ) {
+        return Room.databaseBuilder(applicationContext, databaseClass, databaseName)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration().build();
     }
 
     @Provides
@@ -52,14 +58,8 @@ public abstract class BaseRoomModule {
 
     @Provides
     @Singleton
-    static BaseLocalDatabase provideLocalDatabase(
-            @ApplicationContext Context applicationContext,
-            @DatabaseName String databaseName,
-            @DatabaseClass Class<? extends BaseLocalDatabase> databaseClass
-    ) {
-        return Room.databaseBuilder(applicationContext, databaseClass, databaseName)
-                .allowMainThreadQueries()
-                .fallbackToDestructiveMigration().build();
+    static TokenModelDao provideTokenModelDao(BaseLocalDatabase baseLocalDatabase) {
+        return baseLocalDatabase.tokenModelDao();
     }
 
 }

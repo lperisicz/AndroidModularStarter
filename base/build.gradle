@@ -26,24 +26,24 @@ android {
     }
 }
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    //ANDROID_X_SUPPORT
-    api "androidx.appcompat:appcompat:$rootProject.androidXAppCompatVersion"
-    api "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
-    api "android.arch.lifecycle:extensions:$rootProject.lifecycleExtensionsVersion"
-    api "com.google.android.material:material:$rootProject.materialSupportVersion"
+        //ANDROID_X_SUPPORT
+        api "androidx.appcompat:appcompat:$rootProject.androidXAppCompatVersion"
+        api "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+        api "android.arch.lifecycle:extensions:$rootProject.lifecycleExtensionsVersion"
+        api "com.google.android.material:material:$rootProject.materialSupportVersion"
 
-    //DAGGER
-    api "com.google.dagger:dagger-android:$rootProject.daggerVersion"
-    api "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+        //DAGGER
+        api "com.google.dagger:dagger-android:$rootProject.daggerVersion"
+        api "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
+        annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
+        annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
 
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+        //TESTS
+        testImplementation 'junit:junit:4.12'
+        androidTestImplementation 'androidx.test:runner:1.2.0'
+        androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-}
+    }
