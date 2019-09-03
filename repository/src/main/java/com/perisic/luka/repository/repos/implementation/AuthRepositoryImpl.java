@@ -6,7 +6,9 @@ import com.perisic.luka.base.di.helper.OnTokenChangeListener;
 import com.perisic.luka.base.di.helper.TokenModelProvider;
 import com.perisic.luka.remote.data.helper.BaseResponse;
 import com.perisic.luka.remote.data.request.LoginRequest;
+import com.perisic.luka.remote.data.request.RegisterRequest;
 import com.perisic.luka.remote.data.response.LoginResponse;
+import com.perisic.luka.remote.data.response.RegisterResponse;
 import com.perisic.luka.remote.services.AuthService;
 import com.perisic.luka.repository.repos.abstraction.AuthRepository;
 
@@ -40,4 +42,15 @@ public class AuthRepositoryImpl implements AuthRepository {
         );
     }
 
+    @Override
+    public LiveData<BaseResponse<RegisterResponse>> register(RegisterRequest registerRequest) {
+        return executeCall(
+                authService.register(registerRequest),
+                registerResponse -> {
+                    onTokenChangeListener.onTokenChange(registerResponse.getToken(), registerResponse.getRefreshToken());
+                    tokenModelProvider.setToken(registerResponse.getToken());
+                    tokenModelProvider.setRefreshToken(registerResponse.getRefreshToken());
+                }
+        );
+    }
 }
