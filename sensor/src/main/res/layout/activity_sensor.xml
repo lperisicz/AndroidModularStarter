@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.SensorActivity">
+
+    <com.perisic.luka.ui.DecibelMeterView
+        android:id="@+id/decibel_meter_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="150dp"
+        app:lineNormalColor="@color/colorAccent"
+        app:lineAccentColor="@color/colorAccent"
+        app:linePadding="5dp"/>
+
+    <TextView
+        android:id="@+id/text_view_lux_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/decibel_meter_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Reading lux value"
+        android:layout_marginTop="30dp"
+        android:textSize="22sp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_detect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_lux_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Detect lux value"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

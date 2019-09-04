@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="DecibelMeterView">
+        <attr name="lineWidth" format="dimension" />
+        <attr name="linePadding" format="dimension" />
+        <attr name="lineNormalColor" format="color"/>
+        <attr name="lineAccentColor" format="color"/>
+        <attr name="startAnimationEnabled" format="boolean" />
+        <attr name="startAnimationDuration" format="integer"/>
+    </declare-styleable>
+
+</resources>
