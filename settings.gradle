@@ -1,1 +1,1 @@
-include ':app', ':base', ':local', ':remote', ':repository', ':sensor'
+include ':app', ':base', ':local', ':remote', ':repository', ':sensor', ':camera'

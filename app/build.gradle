@@ -27,7 +27,7 @@ dependencies {
 
     //MODULES
     implementation project(':base')
-    implementation project(':sensor')
+    implementation project(':camera')
 
     //DAGGER
     annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
