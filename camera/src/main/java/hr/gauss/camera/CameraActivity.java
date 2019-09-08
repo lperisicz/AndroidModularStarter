@@ -119,11 +119,10 @@ public class CameraActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onError(@NonNull ImageCapture.UseCaseError useCaseError, @NonNull String message, @Nullable Throwable cause) {
-
+                        public void onError(@NonNull ImageCapture.ImageCaptureError imageCaptureError, @NonNull String message, @Nullable Throwable cause) {
+                            Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
                         }
-                    }
-            );
+                    });
         });
         // Bind use cases to lifecycle
         // If Android Studio complains about "this" being not a LifecycleOwner
